@@ -7,7 +7,7 @@ class TimeWallet():
             and data sender
         '''
         self.seconds: int = secs
-        self.ID = hash(self)
+        self.ID: str = hex(hash(self))
 
     def send(self, secs: int, obj):
         '''
@@ -16,6 +16,7 @@ class TimeWallet():
         '''
         if self.seconds >= secs:
             obj.seconds += secs
+            self.seconds -= secs
         else:
             while self.seconds <= secs:
                 if self.ID != obj.ID:
