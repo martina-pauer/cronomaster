@@ -1,6 +1,8 @@
 import os
 import sys
+import socket
 from chrono import TimeWallet
+
 # Get storaged seconds from external source later
 def read_wallet(name: str) -> int:
     '''
@@ -9,8 +11,27 @@ def read_wallet(name: str) -> int:
     with open(name, 'rb') as wallet:
         result = wallet.read().hex()
     return int(result, 16)
+
 origin = TimeWallet(0)#read_wallet('first.dat'))
 destination = TimeWallet(0)#read_wallet('second.dat'))
+
+def communication():   
+    '''
+        Receive from the other active script 
+        the new data for origin object.
+    '''    
+    loopback_ip = input('\nWrite loopback ip: ')
+    port = int(input('\nWrite Free port: '))
+    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as load:
+        load.bind((loopback_ip, port))
+        load.listen()
+        with load.accept() as connection:
+            # Receive seconds and ID from the other script
+            data = connection.recv(512)
+            origin.senconds += data.decode('utf-8')
+            data = connection.recv(512)
+            origin.ID += data.decode('uft-8')
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
     '''
@@ -41,13 +62,5 @@ while option.lower() == 'y':
     #save_wallet(origin, 'first.dat')
     #save_wallet(destination, 'second.dat')
     option = input('\nContinue Y/n: ')
-def communication():   
-    '''
-        Receive from the other active script the new data for origin object
-    '''    
-    bridge = input('\nWrite hash id for receptor wallet: ').__str__()
-    #bridge.receive()
-    # Send later to the script with ID from destination to origin object
-    #bridge.send(destination, bridge.source.origin)
 # Clean cache
 os.system('rm -R __pycache__')    
