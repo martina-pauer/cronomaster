@@ -31,5 +31,10 @@ while option.lower() == 'y':
     #save_wallet(origin, 'first.dat')
     #save_wallet(destination, 'second.dat')
     option = input('\nContinue Y/n: ')
-# Clean cacche
+# Receive from the other active script the new data for origin object
+bridge = sys.argv[2].__str__()
+#bridge.receive()
+# Send later to the script with ID from destination to origin object
+#bridge.send(destination, bridge.source.origin)
+# Clean cache
 os.system('rm -R __pycache__')    
