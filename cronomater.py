@@ -1,5 +1,4 @@
 import os
-import sys
 import socket
 from chrono import TimeWallet
 
@@ -12,8 +11,8 @@ def read_wallet(name: str) -> int:
         result = wallet.read().hex()
     return int(result, 16)
 
-origin = TimeWallet(0)#read_wallet('first.dat'))
-destination = TimeWallet(0)#read_wallet('second.dat'))
+origin = TimeWallet(read_wallet('first.dat'))
+destination = TimeWallet(read_wallet('second.dat'))
 
 def communication(loopback_ip: str, port: int):   
     '''
