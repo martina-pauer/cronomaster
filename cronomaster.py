@@ -1,3 +1,4 @@
+#!/usrr/bin/python3
 import os
 import socket
 from chrono import TimeWallet
