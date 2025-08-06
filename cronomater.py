@@ -61,23 +61,24 @@ def show_wallets(start: TimeWallet, end: TimeWallet) -> str:
     del sep
     print(result)
     return result
-# First state
-print('\n\t[CRONOMASTER]\n\nSend seconds between conected wallets')
-show_wallets(origin, destination)    
-# Make the right changes
-option = 'y'
-while option.lower() == 'y':
-    # Ask for ip and port for get info
-    try:
-        communication(input('\n\tLoop Back IP from sender: '), int(input('\n\tFree LISTEN port: ')))
-    except:
-        print('\nConnection Fail: Write a valid cronomaster IP and free port')    
-    # Send seconds and count more seconds only when has underrate
-    origin.send(int(input(f'\n\tWrite seconds to send from {origin.ID}: ')), destination)
-    # Next state after send seconds to destination
+if __name__ == '__main__':
+    # Only run it when run directly the script, not when import from a graphical tool
+    print('\n\t[CRONOMASTER]\n\nSend seconds between conected wallets')
     show_wallets(origin, destination)
-    #save_wallet(origin, 'first.dat')
-    #save_wallet(destination, 'second.dat')
+    # Make the right changes
+    option = 'y'
+    while option.lower() == 'y':
+        # Ask for ip and port for get info
+        try:
+            communication(input('\n\tLoop Back IP from sender: '), int(input('\n\tFree LISTEN port: ')))
+        except:
+            print('\nConnection Fail: Write a valid cronomaster IP and free port')    
+        # Send seconds and count more seconds only when has underrate
+        origin.send(int(input(f'\n\tWrite seconds to send from {origin.ID}: ')), destination)
+        # Next state after send seconds to destination
+        show_wallets(origin, destination)
+        save_wallet(origin, 'first.dat')
+        save_wallet(destination, 'second.dat')
     option = input('\nContinue Y/n: ')
 # Clean cache
 os.system('rm -R __pycache__')    
