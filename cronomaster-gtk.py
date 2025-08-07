@@ -12,13 +12,10 @@ class Graphics(Gtk.Window):
         '''
         super().__init__(title = name)
         self.set_size_request(width, height)
-        self.containers: list = [
-                                    Gtk.VBox(spacing = 4), 
-                                    Gtk.VBox(spacing = 4),
-                                ]
+        self.containers: list = []
         self.widgets: list = []
 
-    def load_widgets(self, widgets_limit: int):
+    def load_widgets(self, widgets_limit: list[int]):
         '''
             Add container and widgets from the list
             until one number of widgets per container.
@@ -26,9 +23,9 @@ class Graphics(Gtk.Window):
             Parameter: 
                 widgets limit per container from 1 to number of widgets
         '''
-        for container in self.containers:
+        for container in range(0, widgets_limit.__len__()):
             # Add container to the window
-            self.add(container)
+            self.add(Gtk.VBox(spacing = 4))
         limit = 1    
         widgets_count = 0
         for widget in self.widgets:
@@ -38,7 +35,7 @@ class Graphics(Gtk.Window):
             widgets_count += 1
             # Increase the var used to select container
             if  (
-                    widgets_count <= widgets_limit
+                    widgets_count <= widgets_limit[limit - 1]
                     and limit < self.containers.__len__()
                 ):
                 # Go to next container until be the last container
@@ -49,16 +46,21 @@ if __name__ == '__main__':
     panel.widgets = [
                         # Timer with the representation of total seconds in origin wallet
                         # Input for the seconds number to send
-                            Gtk.Entry(placeholder = 'Seconds to send')
+                            Gtk.Entry(placeholder = 'Seconds to send'),
                         # Sending button
-                            Gtk.Button(label = 'Send')
+                            Gtk.Button(label = 'Send'),
                         # Description text for protocol form
                         # Input for IP address ('ip addr' in bash)
                         # Iput for TCP listening free port ('netstat -nt' in bash when isn't TIME_WAIT)
                         # Connection state text set 'yes' only when has been connect    
                     ]
     try:
-        panel.load_widgets(2)
+        panel.load_widgets  ( 
+                                [
+                                    2, 2, 
+                                    3, 2
+                                ]    
+                            )
         panel.show_all()
         Gtk.main()
     except:
