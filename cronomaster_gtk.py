@@ -56,11 +56,24 @@ def set_communication(first_input, second_input):
     except:
         panel.widgets[6].set_text('No')    
 
+def get_seconds(clock: Gtk.Label):
+    '''
+        Show as time in a Gtk.label
+        the seconds to make a clock
+    '''
+    timer = clock.get_text().split(' : ')
+
+    timer[0] = cronomaster.origin.seconds // 60
+    timer[1] = ((timer[0] // 60) - timer[0])
+    timer[2] = ((timer[1] // 60) - timer[1])
+
+    clock.set_text(f'timer[0] : timer[1] : timer[2]')
+
 if __name__ == '__main__':
     panel = Graphics('Cronomaster: Time Wallet', 200, 100)
     panel.widgets = [
                         # 0 Timer with the representation of total seconds in origin wallet
-                            Gtk.Label(label = 'HH : MM : SS'),
+                            Gtk.Label(label = '00 : 00 : 00'),
                         # 1 Input for the seconds number to send
                             Gtk.Entry(),
                         # 2 Sending button
