@@ -45,17 +45,17 @@ if __name__ == '__main__':
     panel = Graphics('Cronomaster: Time Wallet', 200, 100)
     panel.widgets = [
                         # Timer with the representation of total seconds in origin wallet
-                            Gtk.Label(label = 'HH : MM : SS')
+                            Gtk.Label(label = 'HH : MM : SS'),
                         # Input for the seconds number to send
                             Gtk.Entry(placeholder = 'Seconds to send'),
                         # Sending button
                             Gtk.Button(label = 'Send'),
                         # Description text for protocol form
-                            Gtk.Label(label = 'Connection To other Time Wallet')
+                            Gtk.Label(label = 'Connection To other Time Wallet'),
                         # Input for IP address ('ip addr' in bash)
-                            Gtk.Entry(placeholder = 'IP address x.x.x.x')
+                            Gtk.Entry(placeholder = 'IP address x.x.x.x'),
                         # Input for TCP listening free port ('netstat -nt' in bash when isn't TIME_WAIT)
-                            Gtk.SpinButton()
+                            Gtk.SpinButton(),
                         # Connection state text set 'yes' only when has been connect
                             Gtk.Label(label = 'No')
                     ]
