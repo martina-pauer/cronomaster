@@ -41,24 +41,56 @@ class Graphics(Gtk.Window):
                 # Go to next container until be the last container
                 limit += 1
 
+def set_communication(first_input, second_input):
+    '''
+        Take two values from Gtk inputs
+        and make a cronomaster communication
+    '''
+    # Getting the values from protocol form
+    address = first_input.get_text().__str__()
+    port = int(second_input.get_text())
+    # Set communication
+    try:
+        cronomaster.communication(address, port)
+        panel.widgets[6].set_text('Yes')
+    except:
+        panel.widgets[6].set_text('No')    
+
 if __name__ == '__main__':
     panel = Graphics('Cronomaster: Time Wallet', 200, 100)
     panel.widgets = [
-                        # Timer with the representation of total seconds in origin wallet
+                        # 0 Timer with the representation of total seconds in origin wallet
                             Gtk.Label(label = 'HH : MM : SS'),
-                        # Input for the seconds number to send
-                            Gtk.Entry(placeholder = 'Seconds to send'),
-                        # Sending button
+                        # 1 Input for the seconds number to send
+                            Gtk.Entry(),
+                        # 2 Sending button
                             Gtk.Button(label = 'Send'),
-                        # Description text for protocol form
+                        # 3 Description text for protocol form
                             Gtk.Label(label = 'Connection To other Time Wallet'),
-                        # Input for IP address ('ip addr' in bash)
-                            Gtk.Entry(placeholder = 'IP address x.x.x.x'),
-                        # Input for TCP listening free port ('netstat -nt' in bash when isn't TIME_WAIT)
+                        # 4 Input for IP address ('ip addr' in bash)
+                            Gtk.Entry(),
+                        # 5 Input for TCP listening free port ('netstat -nt' in bash when isn't TIME_WAIT)
                             Gtk.SpinButton(),
-                        # Connection state text set 'yes' only when has been connect
+                        # 6 Connection state text set 'Yes' only when has been connect
                             Gtk.Label(label = 'No')
                     ]
+    # Setting of widgets
+    panel.widgets[4].set_placeholder_text('IP address x.x.x.x')
+    panel.widgets[4].connect(
+                                'changed',
+                                # Change the Seconds to send and connection data 
+                                panel.widgets[1].connect(
+                                                            'changed',
+                                                            panel.widgets[5].connect(
+                                                                'changed',
+                                                                set_communication(
+                                                                    panel.widgets[4],
+                                                                    panel.widgets[5]
+                                                                )
+                                                            )
+                                                        )
+                            )
+    panel.widgets[1].set_placeholder_text('Seconds to send')
     try:
         panel.load_widgets  ( 
                                 [
