@@ -17,7 +17,6 @@ class Graphics(Gtk.Window):
                                     Gtk.VBox(spacing = 4),
                                 ]
         self.widgets: list = []
-        self.load_widgets()
 
     def load_widgets(self, widgets_limit: int):
         '''
@@ -48,9 +47,18 @@ class Graphics(Gtk.Window):
 if __name__ == '__main__':
     panel = Graphics('Cronomaster: Time Wallet', 200, 100)
     panel.widgets = [
-                        Gtk.Entry(placeholder = 'Seconds to send')
+                        # Timer with the representation of total seconds in origin wallet
+                        # Input for the seconds number to send
+                            Gtk.Entry(placeholder = 'Seconds to send')
+                        # Sending button
+                            Gtk.Button(label = 'Send')
+                        # Description text for protocol form
+                        # Input for IP address ('ip addr' in bash)
+                        # Iput for TCP listening free port ('netstat -nt' in bash when isn't TIME_WAIT)
+                        # Connection state text set 'yes' only when has been connect    
                     ]
     try:
+        panel.load_widgets(2)
         panel.show_all()
         Gtk.main()
     except:
