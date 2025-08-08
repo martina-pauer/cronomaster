@@ -49,7 +49,7 @@ def save_wallet(first: TimeWallet, name: str):
         a bytes file (binary file)
     '''
     with open(name, 'wb') as one:
-        one.write(first.seconds.to_bytes())        
+        one.write(first.seconds.to_bytes(28, 'little'))        
 
 def show_wallets(start: TimeWallet, end: TimeWallet) -> str:
     '''
