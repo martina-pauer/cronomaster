@@ -14,7 +14,7 @@ class Graphics(Gtk.Window):
         self.set_size_request(width, height)
         self.widgets: list = []
 
-    def load_widgets(self, widgets_limit: list[int]):
+    def load_widgets(self):
         '''
             Add container and widgets from the list.
         '''
