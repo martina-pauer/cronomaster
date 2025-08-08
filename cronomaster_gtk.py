@@ -12,34 +12,28 @@ class Graphics(Gtk.Window):
         '''
         super().__init__(title = name)
         self.set_size_request(width, height)
-        self.containers: list = []
         self.widgets: list = []
 
     def load_widgets(self, widgets_limit: list[int]):
         '''
-            Add container and widgets from the list
-            until one number of widgets per container.
-
-            Parameter: 
-                widgets limit per container from 1 to number of widgets
+            Add container and widgets from the list.
         '''
-        for container in range(0, widgets_limit.__len__()):
-            # Add container to the window
-            self.add(Gtk.VBox(spacing = 4))
-        limit = 0    
-        widgets_count = 0
-        for widget in self.widgets:
-            # Add until widgets limit on each container
-            self.containers[limit].add(widget)
-            # Always increase the widgets counting
-            widgets_count += 1
-            # Increase the var used to select container
-            if  (
-                    widgets_count <= widgets_limit[limit]
-                    and (limit - 1) < self.containers.__len__()
-                ):
-                # Go to next container until be the last container
-                limit += 1
+        all_containers = Gtk.HBox()
+        
+        first_half = Gtk.VBox()
+        second_half = Gtk.VBox
+
+        for left_widget in self.widgets[0 : self.widgets.__len__() // 2]:
+            # Add widgets to the container
+            first_half.add(left_widget)
+
+        for right_widget in self.widgets[self.widgets.__len__() // 2 :: ]:
+            second_half.add(right_widget)
+
+        for container in [first_half, second_half]:
+            all_containers.add(container)
+            
+        self.add(all_containers)       
 
 def set_communication(first_input: Gtk.Entry, second_input: Gtk.SpinButton):
     '''
@@ -96,12 +90,7 @@ if __name__ == '__main__':
     panel.widgets[1].set_placeholder_text('Seconds to send')
     panel.widgets[2].connect('clicked', set_communication(panel.widgets[4], panel.widgets[5]))
     try:
-        panel.load_widgets  ( 
-                                [
-                                    2, 2, 
-                                    3, 2
-                                ]    
-                            )
+        panel.load_widgets()
         # Count seconds while continuosly reload the graphical interface
         get_seconds(panel.widgets[0])
         panel.show_all()
