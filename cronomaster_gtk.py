@@ -48,7 +48,7 @@ def set_communication(first_input, second_input):
     '''
     # Getting the values from protocol form
     address = first_input.get_text().__str__()
-    port = int(second_input.get_text())
+    port = second_input.get_value_as_int()
     # Set communication
     try:
         cronomaster.communication(address, port)
