@@ -115,6 +115,8 @@ if __name__ == '__main__':
                                     3, 2
                                 ]    
                             )
+        # Count seconds while continuosly reload the graphical interface
+        get_seconds(panel.widgets[0])
         panel.show_all()
         Gtk.main()
     except:
