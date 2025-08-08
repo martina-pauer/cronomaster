@@ -21,7 +21,7 @@ class Graphics(Gtk.Window):
         all_containers = Gtk.HBox()
         
         first_half = Gtk.VBox()
-        second_half = Gtk.VBox
+        second_half = Gtk.VBox()
 
         for left_widget in self.widgets[0 : self.widgets.__len__() // 2]:
             # Add widgets to the container
@@ -88,7 +88,9 @@ if __name__ == '__main__':
     # Setting of widgets
     panel.widgets[4].set_placeholder_text('IP address x.x.x.x')
     panel.widgets[1].set_placeholder_text('Seconds to send')
-    panel.widgets[2].connect('clicked', set_communication(panel.widgets[4], panel.widgets[5]))
+    panel.widgets[2].connect('clicked', lambda click_1, click_2 : set_communication(panel.widgets[4], panel.widgets[5]))
+    # Without this event the window don't show on
+    panel.connect('delete-event', Gtk.main_quit)
     try:
         panel.load_widgets()
         # Count seconds while continuosly reload the graphical interface
