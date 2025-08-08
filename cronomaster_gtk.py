@@ -41,7 +41,7 @@ class Graphics(Gtk.Window):
                 # Go to next container until be the last container
                 limit += 1
 
-def set_communication(first_input, second_input):
+def set_communication(first_input: Gtk.Entry, second_input: Gtk.SpinButton):
     '''
         Take two values from Gtk inputs
         and make a cronomaster communication
@@ -93,21 +93,8 @@ if __name__ == '__main__':
                     ]
     # Setting of widgets
     panel.widgets[4].set_placeholder_text('IP address x.x.x.x')
-    panel.widgets[4].connect(
-                                'changed',
-                                # Change the Seconds to send and connection data 
-                                panel.widgets[1].connect(
-                                                            'changed',
-                                                            panel.widgets[5].connect(
-                                                                'changed',
-                                                                set_communication(
-                                                                    panel.widgets[4],
-                                                                    panel.widgets[5]
-                                                                )
-                                                            )
-                                                        )
-                            )
     panel.widgets[1].set_placeholder_text('Seconds to send')
+    panel.widgets[2].connect('clicked', set_communication(panel.widgets[4], panel.widgets[5]))
     try:
         panel.load_widgets  ( 
                                 [
