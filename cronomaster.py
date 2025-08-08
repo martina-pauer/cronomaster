@@ -80,6 +80,6 @@ if __name__ == '__main__':
         show_wallets(origin, destination)
         save_wallet(origin, 'first.dat')
         save_wallet(destination, 'second.dat')
-    option = input('\nContinue Y/n: ')
+        option = input('\nContinue Y/n: ')
 # Clean cache
 os.system('rm -R __pycache__')    

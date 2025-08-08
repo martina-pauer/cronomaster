@@ -14,13 +14,16 @@ class TimeWallet():
             Send some seconds to other TimeWallet
             object when is possible
         '''
-        if self.seconds >= secs:
+        if self.seconds >= int(3e6):
+            # 1000(1k) hours limit
+            self.seconds = int(3e6)
+        elif self.seconds >= secs:
             obj.seconds += secs
             self.seconds -= secs
         else:
             while self.seconds <= secs:
                 if self.ID != obj.ID:
-                    self.count()            
+                    self.count()
             self.send(secs, obj)
 
     def count(self):
