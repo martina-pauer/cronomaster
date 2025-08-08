@@ -61,12 +61,12 @@ def get_seconds(clock: Gtk.Label):
         Show as time in a Gtk.label
         the seconds to make a clock
     '''
-    timer = clock.get_text().__str__().split(' : ')
     # Clock logic
     cronomaster.origin.count()
     sec = cronomaster.origin.seconds
     cronomaster.save_wallet(cronomaster.origin, 'first.dat')
     # Get Hours, Minutes and Seconds from the storaged seconds in wallet
+    timer = clock.get_text().__str__().split(' : ')
     timer[0] = sec // 3600
     timer[1] = sec // 60 - timer[0] * 60
     timer[2] = sec - timer[1] * 60 - timer[0] * 3600
