@@ -2,6 +2,19 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+# Add from upper folder the cronomaster module
+import os
+import sys
+sys.path.append (
+                    os.path.abspath
+                    (
+                        os.path.join
+                        (
+                            os.path.dirname(__file__),
+                            '..'
+                        )    
+                    )
+                )
 import cronomaster
 
 class Graphics(Gtk.Window):
@@ -58,7 +71,7 @@ def get_seconds(clock: Gtk.Label):
     # Clock logic
     cronomaster.origin.count()
     sec = cronomaster.origin.seconds
-    cronomaster.save_wallet(cronomaster.origin, 'first.dat')
+    cronomaster.save_wallet(cronomaster.origin, 'lib/data/first.dat')
     # Get Hours, Minutes and Seconds from the storaged seconds in wallet
     timer = clock.get_text().__str__().split(' : ')
     timer[0] = sec // 3600
@@ -99,3 +112,8 @@ if __name__ == '__main__':
         Gtk.main()
     except:
         panel.close()
+try:
+    os.system('rm -R __pycache__')
+except:
+    # When the cache has cleaned
+    pass            

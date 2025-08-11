@@ -1,6 +1,18 @@
 #!/usr/bin/python3
 import os
 import socket
+# Add from lib/chrono.py the needed module
+import sys
+sys.path.append (
+                    os.path.abspath
+                    (
+                        os.path.join 
+                        (
+                            os.path.dirname(__file__),
+                            '../lib'
+                        )
+                    )
+                )
 from chrono import TimeWallet
 
 # Get storaged seconds from external source later
@@ -12,8 +24,9 @@ def read_wallet(name: str) -> int:
         result = wallet.read().hex()
     return int(result, 16)
 
-origin = TimeWallet(read_wallet('first.dat'))
-destination = TimeWallet(read_wallet('second.dat'))
+prefix = 'lib/data/'
+origin = TimeWallet(read_wallet(f'{prefix}first.dat'))
+destination = TimeWallet(read_wallet(f'{prefix}second.dat'))
 
 def communication(loopback_ip: str, port: int):   
     '''
@@ -78,8 +91,11 @@ if __name__ == '__main__':
         origin.send(int(input(f'\n\tWrite seconds to send from {origin.ID}: ')), destination)
         # Next state after send seconds to destination
         show_wallets(origin, destination)
-        save_wallet(origin, 'first.dat')
-        save_wallet(destination, 'second.dat')
+        save_wallet(origin, f'{prefix}first.dat')
+        save_wallet(destination, f'{prefix}second.dat')
         option = input('\nContinue Y/n: ')
 # Clean cache
-os.system('rm -R __pycache__')    
+try:
+    os.system(f'rm -R lib/__pycache__')
+except:
+    pass
