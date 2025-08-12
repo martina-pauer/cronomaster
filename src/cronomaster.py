@@ -38,22 +38,30 @@ def communication(loopback_ip: str, port: int):
             port, a free listen port (use 'netstat -ln' in bash)
     '''
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as load:
-        load.bind((loopback_ip, port))
+        load.connect((loopback_ip, port))
         load.listen()
         load.accept()
         with load.accept() as connection:
             # Receive seconds and ID from the other script
-            data = connection.recv(28)
+            data = connection.recv(36)
             origin.senconds += int(data.decode('utf-8'))
             # After read bytes for seconds read bytes for hash ID
-            data = connection.recv(62)
+            data = connection.recv(46)
             origin.ID += data.decode('uft-8')
-            # Send for other script    
-            load.sendto (   [
-                                destination.seconds, 
-                                destination.ID
-                            ],
-                            loopback_ip
+            # Send for other script first seconds and later ID    
+            load.sendto (   bytes((destination.seconds).__str__().encode('utf-8')),
+                            (
+                                loopback_ip,
+                                port
+                            )    
+                        )
+            # Send data like bytes to IP address in the listening port
+            load.sendto (
+                            bytes(destination.ID.encode('utf-8')),
+                            (
+                                loopback_ip,
+                                port
+                            )
                         )                
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
