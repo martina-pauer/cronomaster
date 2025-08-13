@@ -71,7 +71,7 @@ def get_seconds(clock: Gtk.Label):
     # Clock logic
     cronomaster.origin.count()
     sec = cronomaster.origin.seconds
-    cronomaster.save_wallet(cronomaster.origin, 'lib/data/first.dat')
+    cronomaster.save_wallet(cronomaster.origin, '../../lib/data/first.dat')
     # Get Hours, Minutes and Seconds from the storaged seconds in wallet
     timer = clock.get_text().__str__().split(' : ')
     timer[0] = sec // 3600
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     except:
         panel.close()
 try:
-    os.system('rm -R __pycache__')
+    os.system('rm -R ../__pycache__')
 except:
     # When the cache has cleaned
     pass            
