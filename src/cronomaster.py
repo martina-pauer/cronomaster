@@ -25,8 +25,8 @@ def read_wallet(name: str) -> int:
     return int(result, 16)
 
 prefix = '../lib/'
-origin = TimeWallet(0)#read_wallet(f'{prefix}/data/first.dat'))
-destination = TimeWallet(0)#read_wallet(f'{prefix}/data/second.dat'))
+origin = TimeWallet(read_wallet(f'{prefix}/data/first.dat'))
+destination = TimeWallet(read_wallet(f'{prefix}/data/second.dat'))
 
 def communication(loopback_ip: str, port: int):   
     '''
