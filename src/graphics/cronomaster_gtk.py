@@ -63,6 +63,16 @@ def set_communication(first_input: Gtk.Entry, second_input: Gtk.SpinButton):
     except:
         panel.widgets[6].set_text('No')    
 
+def communicate(widget):
+    '''
+        Use set_communication function for
+        send seconds to other time wallet.
+
+        Callback function for Gtk event
+        using connect method from widget.
+    '''
+    set_communication(panel.widgets[4], panel.widgets[5])
+
 def get_seconds(clock: Gtk.Label):
     '''
         Show as time in a Gtk.label
@@ -71,7 +81,7 @@ def get_seconds(clock: Gtk.Label):
     # Clock logic
     cronomaster.origin.count()
     sec = cronomaster.origin.seconds
-    cronomaster.save_wallet(cronomaster.origin, '../../lib/data/first.dat')
+    cronomaster.save_wallet(cronomaster.origin, f'{cronomaster.prefix}lib/data/first.dat')
     # Get Hours, Minutes and Seconds from the storaged seconds in wallet
     timer = clock.get_text().__str__().split(' : ')
     timer[0] = sec // 3600
@@ -102,7 +112,6 @@ if __name__ == '__main__':
     panel.widgets[4].set_placeholder_text('IP address x.x.x.x')
     panel.widgets[1].set_placeholder_text('Seconds to send')
     # Use callback for set_commuinication that take as parameter a Gtk.Button
-    communicate = lambda widget : set_communication(panel.widgets[4], panel.widgets[5])
     panel.widgets[2].connect('clicked', communicate)
     # Without this event the window don't show on
     panel.connect('delete-event', Gtk.main_quit)
@@ -115,7 +124,7 @@ if __name__ == '__main__':
     except:
         panel.close()
 try:
-    os.system('rm -R ../__pycache__')
+    os.system(f'rm -R {cronomaster.prefix}src/__pycache__')
 except:
     # When the cache has cleaned
     pass            

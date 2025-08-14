@@ -24,9 +24,9 @@ def read_wallet(name: str) -> int:
         result = wallet.read().hex()
     return int(result, 16)
 
-prefix = '../lib/'
-origin = TimeWallet(read_wallet(f'{prefix}data/first.dat'))
-destination = TimeWallet(read_wallet(f'{prefix}data/second.dat'))
+prefix = '../'
+origin = TimeWallet(read_wallet(f'{prefix}lib/data/first.dat'))
+destination = TimeWallet(read_wallet(f'{prefix}lib/data/second.dat'))
 
 def communication(loopback_ip: str, port: int):   
     '''
@@ -99,11 +99,11 @@ if __name__ == '__main__':
         origin.send(int(input(f'\n\tWrite seconds to send from {origin.ID}: ')), destination)
         # Next state after send seconds to destination
         show_wallets(origin, destination)
-        save_wallet(origin, f'{prefix}data/first.dat')
-        save_wallet(destination, f'{prefix}data/second.dat')
+        save_wallet(origin, f'{prefix}lib/data/first.dat')
+        save_wallet(destination, f'{prefix}lib/data/second.dat')
         option = input('\nContinue Y/n: ')
 # Clean cache
 try:
-    os.system(f'rm -R {prefix}__pycache__')
+    os.system(f'rm -R {prefix}lib/__pycache__')
 except:
     pass
