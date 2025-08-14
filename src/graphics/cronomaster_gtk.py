@@ -101,7 +101,9 @@ if __name__ == '__main__':
     # Setting of widgets
     panel.widgets[4].set_placeholder_text('IP address x.x.x.x')
     panel.widgets[1].set_placeholder_text('Seconds to send')
-    panel.widgets[2].connect('clicked', lambda click_1, click_2 : set_communication(panel.widgets[4], panel.widgets[5]))
+    # Use callback for set_commuinication that take as parameter a Gtk.Button
+    communicate = lambda widget : set_communication(panel.widgets[4], panel.widgets[5])
+    panel.widgets[2].connect('clicked', communicate)
     # Without this event the window don't show on
     panel.connect('delete-event', Gtk.main_quit)
     try:
