@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import socket
+import http.client
 # Add from lib/chrono.py the needed module
 import sys
 sys.path.append (
@@ -37,6 +38,7 @@ def communication(loopback_ip: str, port: int):
             loopback_ip, ip INET address for the other device (use 'ip addr' or 'ifconfig' in bash)
             port, a free listen port (use 'netstat -ln' in bash)
     '''
+    '''
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as load:
         print('Connecting...')
         load.connect((loopback_ip, port))
@@ -65,8 +67,17 @@ def communication(loopback_ip: str, port: int):
                                 loopback_ip,
                                 port
                             )
-                        )
-    print('End of the communication.')                        
+                        )      
+    print('End of the communication.')
+    '''
+    # New way of communication for send data rightly
+    http.client.HTTPConnection  (
+                                    loopback_ip,
+                                    port
+                                ).request   (
+                                    'POST', '/send', 
+                                    destination.seconds
+                                )                       
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
     '''
