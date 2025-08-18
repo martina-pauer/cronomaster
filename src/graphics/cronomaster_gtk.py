@@ -85,8 +85,8 @@ def get_seconds(clock: Gtk.Label):
     # Get Hours, Minutes and Seconds from the storaged seconds in wallet
     timer = clock.get_text().__str__().split(' : ')
     timer[0] = sec // 3600
-    timer[1] = sec // 60 - timer[0] * 60
-    timer[2] = sec - timer[1] * 60 - timer[0] * 3600
+    timer[1] = (sec // 60) - (timer[0] * 60)
+    timer[2] = sec - (timer[1] * 60) - (timer[0] * 3600)
 
     clock.set_text(f'{timer[0]} : {timer[1]} : {timer[2]}')
 
