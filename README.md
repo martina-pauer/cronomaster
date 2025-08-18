@@ -4,9 +4,9 @@ A time counting tool for save time and send later the seconds integer as a data 
 * `python3`
 * `pip3`
 * `python3-gi`
-* **PyGObject**:
+* **PyGObject and other Python modules**:
 ```sh
-pip3 install pygobject
+pip3 install -r requirements.txt
 ```
 # For install the Gtk3 library:
 ### Debian / Ubuntu / Linux Mint
