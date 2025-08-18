@@ -71,13 +71,13 @@ def communication(loopback_ip: str, port: int):
     print('End of the communication.')
     '''
     # New way of communication for send data rightly
-    http.client.HTTPConnection  (
+    response = http.client.HTTPConnection  (
                                     loopback_ip,
                                     port
                                 ).request   (
                                     'POST', '/send', 
                                     destination.seconds
-                                )                       
+                                )                     
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
     '''
