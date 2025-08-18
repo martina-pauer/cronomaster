@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import os
-import socket
+#import socket
 import http.client
 # Add from lib/chrono.py the needed module
 import sys
@@ -43,7 +43,6 @@ def communication(loopback_ip: str, port: int):
         print('Connecting...')
         load.connect((loopback_ip, port))
         load.listen()
-        load.accept()
         with load.accept() as connection:
             print('Receiving seconds...')
             # Receive seconds and ID from the other script
@@ -75,18 +74,18 @@ def communication(loopback_ip: str, port: int):
                                     loopback_ip,
                                     port
                                 ).request   (
-                                    'POST', '/send', 
-                                    destination.seconds
+                                    'POST', '/', 
+                                    destination.seconds.__str__().encode('utf-8')
                                 )
-    print(f'State response.status for connection')
+    print(f'State {response.status} for connection')
     # Connect to receive data from other POST request
     response = http.client.HTTPConnection  (
                                     loopback_ip,
                                     port
                                 ).request   (
-                                    'GET', '/receive'
+                                    'GET', '/'
                                 )
-    print(f'State response.status for connection')
+    print(f'State {response.status} for connection')
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
     '''
