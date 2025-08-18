@@ -77,7 +77,16 @@ def communication(loopback_ip: str, port: int):
                                 ).request   (
                                     'POST', '/send', 
                                     destination.seconds
-                                )                     
+                                )
+    print(f'State response.status for connection')
+    # Connect to receive data from other POST request
+    response = http.client.HTTPConnection  (
+                                    loopback_ip,
+                                    port
+                                ).request   (
+                                    'GET', '/receive'
+                                )
+    print(f'State response.status for connection')
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
     '''
