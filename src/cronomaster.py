@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import os
-#import socket
-import http.client
+import socket
 # Add from lib/chrono.py the needed module
 import sys
 sys.path.append (
@@ -38,54 +37,37 @@ def communication(loopback_ip: str, port: int):
             loopback_ip, ip INET address for the other device (use 'ip addr' or 'ifconfig' in bash)
             port, a free listen port (use 'netstat -ln' in bash)
     '''
-    '''
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as load:
         print('Connecting...')
         load.connect((loopback_ip, port))
         load.listen()
+        # Send for other script first seconds and later ID    
+        load.sendto (  
+                        bytes((destination.seconds).__str__().encode('utf-8')),
+                        (
+                            loopback_ip,
+                             port
+                        )    
+                    )
+        print(f'\tSend {destination.seconds} seconds to {destination.ID}')
+        # Send data like bytes to IP address in the listening port
+        load.sendto (
+                        bytes(destination.ID.encode('utf-8')),
+                        (
+                            loopback_ip,
+                            port
+                        )
+                    )        
         with load.accept() as connection:
             print('Receiving seconds...')
             # Receive seconds and ID from the other script
             data = connection.recv(36)
-            origin.senconds += int(data.decode('utf-8'))
+            if origin.seconds <= 3e6:
+                origin.senconds += int(data.decode('utf-8'))
             # After read bytes for seconds read bytes for hash ID
             data = connection.recv(46)
-            origin.ID += data.decode('uft-8')
-            # Send for other script first seconds and later ID    
-            load.sendto (   bytes((destination.seconds).__str__().encode('utf-8')),
-                            (
-                                loopback_ip,
-                                port
-                            )    
-                        )
-            print(f'\tSend {destination.seconds} seconds to {destination.ID}')
-            # Send data like bytes to IP address in the listening port
-            load.sendto (
-                            bytes(destination.ID.encode('utf-8')),
-                            (
-                                loopback_ip,
-                                port
-                            )
-                        )      
+            origin.ID = data.decode('uft-8')      
     print('End of the communication.')
-    '''
-    # New way of communication for send data rightly
-    response = http.client.HTTPConnection  (
-                                    loopback_ip,
-                                    port
-                                ).request   (
-                                    'POST', '/', 
-                                    destination.seconds.__str__().encode('utf-8')
-                                )
-    print(f'State {response.status} for connection')
-    # Connect to receive data from other POST request
-    response = http.client.HTTPConnection  (
-                                    loopback_ip,
-                                    port
-                                ).request   (
-                                    'GET', '/'
-                                )
-    print(f'State {response.status} for connection')
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
     '''
