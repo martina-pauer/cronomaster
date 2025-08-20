@@ -13,7 +13,7 @@ sys.path.append (
                         )
                     )
                 )
-from chrono import TimeWallet
+from chrono import TimeWallet, seconds_limit
 
 # Get storaged seconds from external source later
 def read_wallet(name: str) -> int:
@@ -61,12 +61,14 @@ def communication(loopback_ip: str, port: int):
         with load.accept() as connection:
             print('Receiving seconds...')
             # Receive seconds and ID from the other script
-            data = connection.recv(36)
-            if origin.seconds <= 3e6:
-                origin.senconds += int(data.decode('utf-8'))
+            data: int = int(connection.recv(36).decode('utf-8'))
+            if (origin.seconds + data) <= seconds_limit:
+                origin.senconds += data
+            else:
+                print(f'\n{seconds_limit} secs limit reached')
             # After read bytes for seconds read bytes for hash ID
-            data = connection.recv(46)
-            origin.ID = data.decode('uft-8')      
+            data: str = connection.recv(46).decode('utf-8')
+            origin.ID = data
     print('End of the communication.')
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):
@@ -75,7 +77,8 @@ def save_wallet(first: TimeWallet, name: str):
         a bytes file (binary file)
     '''
     with open(name, 'wb') as one:
-        one.write(first.seconds.to_bytes(28, 'little'))        
+        if first.seconds <= seconds_limit:
+            one.write(first.seconds.to_bytes(28, 'little'))            
 
 def show_wallets(start: TimeWallet, end: TimeWallet) -> str:
     '''
