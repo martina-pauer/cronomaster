@@ -107,8 +107,12 @@ if __name__ == '__main__':
         origin.send(int(input(f'\n\tWrite seconds to send from {origin.ID}: ')), destination)
         # Next state after send seconds to destination
         show_wallets(origin, destination)
-        save_wallet(origin, f'{prefix}lib/data/first.dat')
-        save_wallet(destination, f'{prefix}lib/data/second.dat')
+        if (origin.seconds // destination.seconds) <= (seconds_limit // 2):
+            # Only save when the seconds are between the limit
+            save_wallet(origin, f'{prefix}lib/data/first.dat')
+            save_wallet(destination, f'{prefix}lib/data/second.dat')
+        else:
+            print(f'Extra seconds sended then don\'t are storaged.\n Overpased {seconds_limit} seconds limit.\n')    
         option = input('\nContinue Y/n: ')
 # Clean cache
 try:
