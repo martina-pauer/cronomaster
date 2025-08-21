@@ -19,7 +19,10 @@ class TimeWallet():
         if (obj.seconds + secs) >= seconds_limit:
             # Normalize seconds to limit
             obj.seconds = seconds_limit
-        elif (obj.seconds + secs) < seconds_limit:
+        elif    (
+                    (obj.seconds + secs) < seconds_limit
+                    and self.seconds >= secs
+                ):
             # Send seconsds to other object
             obj.seconds += secs
             self.seconds -= secs
