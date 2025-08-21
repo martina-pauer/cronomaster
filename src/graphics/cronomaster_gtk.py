@@ -111,6 +111,17 @@ if __name__ == '__main__':
                             Gtk.Label(label = 'No')
                     ]
     # Setting of widgets
+    spinAdjust = Gtk.Adjustment (
+                                # Set TCP port input range from 1024 to 10024
+                                    value = 1.024e3,
+                                    upper = 10.024e3,
+                                    lower = 1.024e3,
+                                # The numbers be each ten ports    
+                                    step_increment = 10.0,
+                                    page_increment = 10.0,
+                                    page_size = 0.0
+                                )
+    panel.widgets[5].set_adjustement(spinAdjust)
     panel.widgets[4].set_placeholder_text('IP address x.x.x.x')
     panel.widgets[1].set_placeholder_text('Seconds to send')
     # Use callback for set_commuinication that take as parameter a Gtk.Button
