@@ -19,6 +19,8 @@ class TimeWallet():
         if (obj.seconds + secs) >= seconds_limit:
             # Normalize seconds to limit
             obj.seconds = seconds_limit
+            # Set to zero because haven't more seconds to limit
+            self.seconds = 0
         elif    (
                     (obj.seconds + secs) < seconds_limit
                     and self.seconds >= secs
@@ -43,4 +45,8 @@ class TimeWallet():
         if self.seconds >= seconds_limit:            
             self.seconds = seconds_limit
         else:    
-            self.seconds += time.gmtime().tm_sec            
+            self.seconds += time.gmtime().tm_sec
+            # Back to limit when overpased seconds
+            if self.seconds >= seconds_limit:
+                # No need to count again for make this fix
+                self.seconds = seconds_limit            
