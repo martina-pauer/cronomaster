@@ -22,7 +22,7 @@ class TimeWallet():
             # Set to zero because haven't more seconds to limit
             self.seconds = 0
         elif    (
-                    (obj.seconds + secs) < seconds_limit
+                    (obj.seconds + secs) <= seconds_limit
                     and self.seconds >= secs
                 ):
             # Send seconsds to other object
@@ -32,6 +32,8 @@ class TimeWallet():
             # Count seconsds until get limit in the other or secs to send in this object
             while self.seconds <= secs:
                 if obj.seconds >= seconds_limit:
+                    # Fix extra seconds
+                    obj.seconds = seconds_limit
                     break
                 elif self.ID != obj.ID:
                     obj.count()
@@ -49,4 +51,4 @@ class TimeWallet():
             # Back to limit when overpased seconds
             if self.seconds >= seconds_limit:
                 # No need to count again for make this fix
-                self.seconds = seconds_limit            
+                self.seconds = seconds_limit                  
