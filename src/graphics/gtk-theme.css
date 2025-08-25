@@ -1,0 +1,21 @@
+vbox, label
+{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+label
+{
+    font-size: 0.5em;
+}
+
+entry
+{
+    border-radius: 0.1em;
+}
+
+button, * ~ vbox
+{
+    background-color: #1a1919;
+    color: #ffffff;
+}
