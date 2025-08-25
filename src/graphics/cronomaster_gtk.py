@@ -2,6 +2,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+from gi.repository import Gdk
 # Add from upper folder the cronomaster module
 import os
 import sys
@@ -16,7 +17,26 @@ sys.path.append (
                     )
                 )
 import cronomaster
+# Define style for GTK using the SDK
+style = Gtk.CssProvider()
 
+css_data = b'''style file content'''
+
+with open('gtk-theme.css','rb') as data:
+    css_data = data.read()
+# Load bytes from the file to the style
+style.load_from_data(css_data)
+# Create context for the style
+style_context = Gtk.StyleContext()
+# Define screen to apply style
+screen = Gdk.Screen().get_default()
+# Add style to the screen
+style_context.add_provider_for_screen   (
+                                            screen,
+                                            style,
+                                            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                                        )
+# Define GTK window
 class Graphics(Gtk.Window):
     def __init__(self, name: str, width: int, height: int):
         '''
