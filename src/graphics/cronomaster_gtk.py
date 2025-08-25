@@ -89,6 +89,11 @@ def get_seconds(clock: Gtk.Label):
     timer[0] = sec // 3600
     timer[1] = (sec - (timer[0] * 3600)) // 60
     timer[2] = sec - (timer[0] * 3600) - (timer[1] * 60)
+    # Fix time format for numbers less than 10 add one zero to left
+    for position in range(0, 3):
+        # Check hours, minutes and seconds and fix
+        if timer[position] < 10:
+            timer[position] = f'0{timer[position]}'
     # Load time to the clock label
     clock.set_text(f'{timer[0]} : {timer[1]} : {timer[2]}')
 
