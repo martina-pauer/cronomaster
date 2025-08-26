@@ -10,7 +10,7 @@ pip3 install -r requirements.txt
 ```
 # For install the Gtk3 library:
 ### Debian / Ubuntu / Linux Mint
-`libgtk-3-dev`
+`gir1.2-gtk-3.0`
 ### Red Hat (RHEL) / Fedora / CentOs
 `gtk3-devel`
 ### Arch Linux / Manjaro
