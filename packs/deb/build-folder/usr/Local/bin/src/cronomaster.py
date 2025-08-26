@@ -24,7 +24,7 @@ def read_wallet(name: str) -> int:
         result = wallet.read().hex()
     return int(result, 16)
 
-prefix = '../'
+prefix = '/usr/Local/bin/'
 origin = TimeWallet(read_wallet(f'{prefix}lib/data/first.dat'))
 destination = TimeWallet(read_wallet(f'{prefix}lib/data/second.dat'))
 
