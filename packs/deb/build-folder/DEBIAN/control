@@ -1,0 +1,6 @@
+Package: cronomaster
+Version: 1.0
+Architecture: any
+Maintainer: Martina Pauer
+Description: A seconds GTK sender using TCP/IP protocol and storage working like a time wallet
+Depends: python3 (>= 3.10), pip3, python3-gi (>= 3.42), libgtk-3-dev
