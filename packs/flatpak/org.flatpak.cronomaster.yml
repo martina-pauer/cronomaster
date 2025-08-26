@@ -9,6 +9,7 @@ modules:
       build-commands:
         - install -Dm755 ./src/graphics/cronomaster_gtk.py /app/bin/cronomaster_gtk.py
         - cp -R ./* /app/bin/
+        - chmod -R 755 /app/bin/
       sources:
         - type: dir
           path: .
