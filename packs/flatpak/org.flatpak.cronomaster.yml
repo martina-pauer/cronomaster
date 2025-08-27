@@ -2,14 +2,14 @@ id: org.flatpak.cronomaster
 runtime: org.gnome.Platform
 runtime-version: '47'
 sdk: org.gnome.Sdk
-command: /app/bin/cronomaster_gtk.py
+command: /app/bin/graphics/cronomaster_gtk.py
 modules:
     - name: cronomaster
       buildsystem: simple
       build-commands:
-        - install -Dm755 ./src/graphics/cronomaster_gtk.py /app/bin/cronomaster_gtk.py
         - cp -R ./* /app/bin/
-        - chmod -R 755 /app/bin/
+        - chmod -R 644 /app/bin/
+        - chmod -R 755 /app/bin/graphics.cronomaster_gtk.py
       sources:
         - type: dir
           path: .
