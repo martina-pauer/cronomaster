@@ -1,0 +1,25 @@
+id: org.flatpak.cronomaster
+runtime: org.gnome.Platform
+runtime-version: '47'
+sdk: org.gnome.Sdk
+command: /app/bin/src/graphics/cronomaster_gtk.py
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+modules:
+    - name: cronomaster
+      buildsystem: simple
+      build-commands:
+        - mkdir /app/bin/
+        - mkdir /app/bin/lib/
+        - mkdir /app/bin/src/
+        - mkdir /app/bin/src/graphics/
+        - cp -R ./lib/* /app/bin/lib/
+        - install -Dm755 ./src/cronomaster.py /app/bin/src/
+        - install -Dm755 ./src/graphics/cronomaster_gtk.py /app/bin/src/graphics/
+        - cp ./src/graphics/cronomaster-icon.png /app/bin/src/graphics/
+        - cp ./src/graphics/gtk-theme.css /app/bin/src/graphics/
+      sources:
+        - type: dir
+          path: ../../
