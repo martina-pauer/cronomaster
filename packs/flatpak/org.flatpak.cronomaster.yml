@@ -13,4 +13,3 @@ modules:
       sources:
         - type: dir
           path: .
-          dest-filename: cronomaster
