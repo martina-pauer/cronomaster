@@ -1,6 +1,6 @@
 import time
 
-seconds_limit: int = int(3e6)
+seconds_limit: int = (10 ** 100)
 
 class TimeWallet():
     def __init__(self, secs: int):
