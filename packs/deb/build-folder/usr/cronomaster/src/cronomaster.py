@@ -9,7 +9,7 @@ sys.path.append (
                         os.path.join 
                         (
                             os.path.dirname(__file__),
-                            '../lib'
+                            '/usr/cronomaster/lib'
                         )
                     )
                 )
@@ -24,7 +24,7 @@ def read_wallet(name: str) -> int:
         result = wallet.read().hex()
     return int(result, 16)
 
-prefix = '/usr/Local/bin/'
+prefix = '/usr/cronomaster/'
 origin = TimeWallet(read_wallet(f'{prefix}lib/data/first.dat'))
 destination = TimeWallet(read_wallet(f'{prefix}lib/data/second.dat'))
 

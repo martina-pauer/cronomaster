@@ -12,7 +12,7 @@ sys.path.append (
                         os.path.join
                         (
                             os.path.dirname(__file__),
-                            '..'
+                            '/usr/cronomaster/src'
                         )    
                     )
                 )
@@ -22,7 +22,7 @@ style = Gtk.CssProvider()
 
 css_data = b'''style file content'''
 
-with open(f'{cronomaster.prefix}/src/graphics/gtk-theme.css','rb') as data:
+with open(f'{cronomaster.prefix}gtk-theme.css','rb') as data:
     css_data = data.read()
 # Load bytes from the file to the style
 style.load_from_data(css_data)
