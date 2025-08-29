@@ -14,7 +14,7 @@ mkdir -p $cronomaster_dir && cp -R "./" "${cronomaster_dir}"
 chmod -R 666 $cronomaster_dir
 sleep $timeout
 echo "Making ${graphical} and ${terminal} executable..."
-chmod 755 $graphical && chmod 755 $terminal
+
 sleep $timeout
 # Create commands for run in bash terminal
 echo "Generating commands..."
