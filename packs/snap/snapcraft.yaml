@@ -1,0 +1,31 @@
+name: cronomaster
+base: core22
+version: "1.5.2"
+license: MIT
+summary: A simple Python GTK time wallet using seconds sending
+description: |
+  This use time counting and bytes files to storage seconds
+  with TCP/IP protocol could sends number to another IP 
+  and port device that is running the program using 
+  socket module for it in a GTK window for give value
+  and make sendable the time.
+
+confinement: strict
+
+platforms:
+  amd64:
+  
+parts:
+  cronomaster:
+    plugin: python
+    source-type: git
+    source: https://github.com/martina-pauer/cronomaster
+    
+    override-build: |
+      cp -R * /root/project/
+      chmod -R 777 /root/project/
+      /root/project/install.sh
+         
+apps:
+  cronomaster:
+    command: ./src/graphics/cronomaster_gtk.py
