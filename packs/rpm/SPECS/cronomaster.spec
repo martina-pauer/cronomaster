@@ -1,5 +1,5 @@
 Name:           cronomaster
-Version:        1.1.0
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        Time Wallet GTK written tha save and sen seconds between app using TCP/IP.
 License:        MIT
