@@ -3,7 +3,7 @@ import os
 import socket
 # Add from lib/chrono.py the needed module
 import sys
-prefix = '/usr/cronomaster/'
+prefix = f'{os.path.abspath('..')}/'
 sys.path.append (
                     os.path.abspath
                     (

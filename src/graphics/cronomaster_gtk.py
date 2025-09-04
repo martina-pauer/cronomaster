@@ -13,7 +13,7 @@ sys.path.append (
                         (
                             os.path.dirname(__file__),
                             # Set path to cronomaster.py file
-                            '/usr/cronomaster/src'
+                            f'{os.path.abspath('..')}/'
                         )    
                     )
                 )
