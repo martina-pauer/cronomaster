@@ -2,8 +2,8 @@
 import os
 import socket
 # Add from lib/chrono.py the needed module
-prefix = '/usr/cronomaster/'
 import sys
+prefix = '/usr/cronomaster/'
 sys.path.append (
                     os.path.abspath
                     (
@@ -60,15 +60,17 @@ def communication(loopback_ip: str, port: int):
                     )        
         with load.accept() as connection:
             print('Receiving seconds...')
-            # Receive seconds and ID from the other script
-            data: int = int(connection.recv(36).decode('utf-8'))
+            # Receive seconds and ID from the other script in sort
+            data: int = int(connection.recv(28).decode('utf-8'))
             if (origin.seconds + data) <= seconds_limit:
                 origin.senconds += data
             else:
                 print(f'\n{seconds_limit} secs limit reached')
             # After read bytes for seconds read bytes for hash ID
-            data: str = connection.recv(46).decode('utf-8')
+            data: str = connection.recv(8).decode('utf-8')
             origin.ID = data
+        # End communication for don't stuck the program with an unnecessary connection    
+        connection.close()    
     print('End of the communication.')
 # Show initial state
 def save_wallet(first: TimeWallet, name: str):

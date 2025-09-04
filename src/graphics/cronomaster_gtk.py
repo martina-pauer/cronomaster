@@ -6,17 +6,18 @@ from gi.repository import Gdk
 # Add from upper folder the cronomaster module
 import os
 import sys
-import cronomaster
 sys.path.append (
                     os.path.abspath
                     (
                         os.path.join
                         (
                             os.path.dirname(__file__),
-                            f'{cronomaster.prefix}src'
+                            # Set path to cronomaster.py file
+                            '/usr/cronomaster/src'
                         )    
                     )
                 )
+import cronomaster
 # Define style for GTK using the SDK
 style = Gtk.CssProvider()
 
