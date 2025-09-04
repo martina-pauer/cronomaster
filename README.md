@@ -1,5 +1,11 @@
 # Cronomaster
 A time counting tool for save time and send later the seconds integer as a data working like a time wallet
+# The More Universal Installing Way
+```sh
+chmod +x install.sh
+# Running with root permissions
+./install.sh
+```
 ## Dependencies (packages & pip)
 * `python3`
 * `pip3`
