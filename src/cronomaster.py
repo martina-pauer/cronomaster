@@ -3,7 +3,8 @@ import os
 import socket
 # Add from lib/chrono.py the needed module
 import sys
-prefix = f'{os.path.abspath("../.")}/'
+# Cronomaster dir when is installed for more standarization and less errors
+prefix = '/usr/cronomaster/'
 sys.path.append (
                     os.path.abspath
                     (
