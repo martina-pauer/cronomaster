@@ -107,9 +107,21 @@ def get_seconds(clock: Gtk.Label):
     cronomaster.save_wallet(cronomaster.origin, f'{cronomaster.prefix}lib/data/first.dat')
     # Get Hours, Minutes and Seconds from the storaged seconds in wallet
     timer = clock.get_text().__str__().split(' : ')
-    timer[0] = sec // 3600
-    timer[1] = (sec - (timer[0] * 3600)) // 60
-    timer[2] = sec - (timer[0] * 3600) - (timer[1] * 60)
+    # Algorithm to convert seconds in hours with his remainders in minutes and seconds
+    remainder = sec
+    # Get hours
+    while (remainder >= 3600):
+        # Count each hour and decrease the remainder
+        timer[0] = int(timer[0]) + 1
+        remainder -= 3600
+    # Get minutes with the remainder
+    while (remainder >= 60):
+        # Count minutes decreasing his remainder only to stop of count
+        timer[1] = int(timer[1]) + 1
+        remainder -= 60
+    # The seconds are the remainder that start from the seconds now haven't hours and minutes
+    timer[2] = remainder        
+    # End of algorithm Turn Seconds into Hours with his Remainder in Minutes and Seconds (TSHRMS)
     # Fix time format for numbers less than 10 add one zero to left
     for position in range(0, 3):
         # Check hours, minutes and seconds and fix
@@ -139,12 +151,12 @@ if __name__ == '__main__':
     # Setting of widgets
     spinAdjust = Gtk.Adjustment (
                                 # Set TCP port input range from 1024 to 10024
-                                    value = 1.024e3,
-                                    upper = 10.024e3,
-                                    lower = 1.024e3,
+                                    value = 1.080e3,
+                                    upper = 10.000e3,
+                                    lower = 1.080e3,
                                 # The numbers be each ten ports    
-                                    step_increment = 10.0,
-                                    page_increment = 10.0,
+                                    step_increment = 1e3,
+                                    page_increment = 1e3,
                                     page_size = 0.0
                                 )
     panel.widgets[5].set_adjustment(spinAdjust)
