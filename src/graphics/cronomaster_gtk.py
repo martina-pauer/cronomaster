@@ -120,7 +120,7 @@ def get_seconds(clock: Gtk.Label):
         timer[1] = int(timer[1]) + 1
         remainder -= 60
     # The seconds are the remainder that start from the seconds now haven't hours and minutes
-    timer[2] = remainder        
+    timer[2] = int(timer[2]) + remainder        
     # End of algorithm Turn Seconds into Hours with his Remainder in Minutes and Seconds (TSHRMS)
     # Fix time format for numbers less than 10 add one zero to left
     for position in range(0, 3):
